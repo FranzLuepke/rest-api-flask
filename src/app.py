@@ -1,5 +1,17 @@
 from flask import Flask, jsonify
 
+stores = [
+    {
+        'name': 'Store',
+        'items': [
+            {
+                'name': 'pc',
+                'price': 1000,
+            }
+        ]
+    }
+]
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -19,7 +31,7 @@ def get_store(name):
 # GET /store
 @app.route('/store')
 def get_stores():
-    pass
+    return jsonify({'stores': stores})
 
 # POST /store/<string:name>/item {name:, price:}
 @app.route('/store/<string:name>/item', methods=['POST'])
