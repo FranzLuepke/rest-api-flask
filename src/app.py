@@ -30,13 +30,14 @@ def create_store():
     stores.append(new_store)
     return jsonify(stores) 
 
-# GET /store
+# GET /store/<string:name>
 @app.route('/store/<string:name>')
 def get_store(name):
     for store in stores:
         if store['name'] == name:
             return jsonify(store)
     return jsonify({'message': f'Store {name!r} not found.'})
+
 # GET /store
 @app.route('/store')
 def get_stores():
