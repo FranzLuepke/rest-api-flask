@@ -1,14 +1,18 @@
 from user import User
-from werkzeug.security import safe_str_cmp
+import hmac
+str_to_bytes = lambda s: s.encode("utf-8") if isinstance(s, str) else s
+safe_str_cmp = lambda a, b: hmac.compare_digest(str_to_bytes(a), str_to_bytes(b))
 
 users = [
     User(1, 'Franz', '123456')
 ]
-userNameMapping = {u.userName for u in users}
-userIdMappping = {u.id for u in users}
+usernameMapping = {u.username: u for u in users}
+userIdMappping = {u.id: u for u in users}
 
-def authenticate(userName, password):
-    user = userNameMapping.get(userName, None)
+def authenticate(username, password):
+    print(username)
+    print(password)
+    user = usernameMapping.get(username, None)
     if user and safe_str_cmp(user.password, password):
         return user
 
